@@ -29,3 +29,38 @@ dados_vendas = [
     [125, 'Bruno Gomes', 'Standard', 'RJ', '2026-10-14', 1250.00, 'Cancelado'],
     [126, 'Daniela Lima', 'Standard', 'SP', '2026-10-14', 920.00, 'Aprovado']
 ]
+
+def calcular_faturamento_total(vendas):
+    """Soma o valor total apenas dos pedidos com status 'Aprovado'"""
+    total = 0.0
+    for pedido in vendas:
+        valor = pedido[5]           # O valor total está no índice 5
+        status = pedido[6]          # O status do pagamento está no índice 6
+        
+        if status == 'Aprovado':
+            total += valor
+    return total
+
+
+def filtrar_pedidos_pendentes(vendas):
+    """Exibe na tela os clientes que possuem cobranças pendentes"""
+    print("\n--- PEDIDOS PENDENTES DE PAGAMENTO ---")
+    for pedido in vendas:
+        cliente = pedido[1]         # Nome do cliente está no índice 1
+        valor = pedido[5]           # Valor está no índice 5
+        status = pedido[6]          # Status está no índice 6
+        
+        if status == 'Pendente':
+            print(f"Cliente: {cliente} | Valor: R$ {valor:.2f}")
+
+
+# =======================================================
+# EXECUÇÃO DO SCRIPT (Testando as funções)
+# =======================================================
+
+# 1. Chamando a função de cálculo e guardando o resultado em uma variável
+faturamento_aprovado = calcular_faturamento_total(dados_vendas)
+print(f"Faturamento Total Aprovado: R$ {faturamento_aprovado:.2f}")
+
+# 2. Chamando a função de filtro (ela já faz os prints internamente)
+filtrar_pedidos_pendentes(dados_vendas)
